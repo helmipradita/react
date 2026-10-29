@@ -7,7 +7,7 @@
  * @noflow
  * @nolint
  * @preventMunge
- * @generated SignedSource<<3b94dbcd1cb5e28800335ccd58e67bd5>>
+ * @generated SignedSource<<a4b463a6e89f8d25fd26ed7ea47d6b5c>>
  */
 
 /*
@@ -18940,17 +18940,18 @@ function startViewTransition(
           if ("object" === typeof error && null !== error)
             switch (error.name) {
               case "InvalidStateError":
-                if (
-                  "View transition was skipped because document visibility state is hidden." ===
-                    error.message ||
-                  "Skipping view transition because document visibility state has become hidden." ===
-                    error.message ||
-                  "Skipping view transition because viewport size changed." ===
-                    error.message ||
-                  "Transition was aborted because of invalid state" ===
-                    error.message
-                )
-                  error = null;
+                switch (error.message) {
+                  case "Transition was aborted because of invalid state":
+                  case "Transition was aborted because of invalid state.":
+                  case "Transition was aborted because of invalid state. Document hidden":
+                  case "Transition was aborted because of invalid state. Viewport size changed":
+                  case "Skipped ViewTransition due to document being hidden":
+                  case "Skipped view transition due to viewport resize":
+                  case "View transition was skipped because document visibility state is hidden.":
+                  case "Skipping view transition because document visibility state has become hidden.":
+                  case "Skipping view transition because viewport size changed.":
+                    error = null;
+                }
             }
           null !== error && errorCallback(error);
         } finally {
@@ -21637,14 +21638,14 @@ ReactDOMHydrationRoot.prototype.unstable_scheduleHydration = function (target) {
 };
 var isomorphicReactPackageVersion$jscomp$inline_2483 = React.version;
 if (
-  "19.3.0-native-fb-dc9aed36-20261027" !==
+  "19.3.0-native-fb-c5ec5c6d-20261029" !==
   isomorphicReactPackageVersion$jscomp$inline_2483
 )
   throw Error(
     formatProdErrorMessage(
       527,
       isomorphicReactPackageVersion$jscomp$inline_2483,
-      "19.3.0-native-fb-dc9aed36-20261027"
+      "19.3.0-native-fb-c5ec5c6d-20261029"
     )
   );
 ReactDOMSharedInternals.findDOMNode = function (componentOrElement) {
@@ -21666,10 +21667,10 @@ ReactDOMSharedInternals.findDOMNode = function (componentOrElement) {
 };
 var internals$jscomp$inline_2490 = {
   bundleType: 0,
-  version: "19.3.0-native-fb-dc9aed36-20261027",
+  version: "19.3.0-native-fb-c5ec5c6d-20261029",
   rendererPackageName: "react-dom",
   currentDispatcherRef: ReactSharedInternals,
-  reconcilerVersion: "19.3.0-native-fb-dc9aed36-20261027",
+  reconcilerVersion: "19.3.0-native-fb-c5ec5c6d-20261029",
   getLaneLabelMap: function () {
     for (
       var map = new Map(), lane = 1, index$351 = 0;
@@ -21792,4 +21793,4 @@ exports.hydrateRoot = function (container, initialChildren, options) {
   listenToAllSupportedEvents(container);
   return new ReactDOMHydrationRoot(initialChildren);
 };
-exports.version = "19.3.0-native-fb-dc9aed36-20261027";
+exports.version = "19.3.0-native-fb-c5ec5c6d-20261029";

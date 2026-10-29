@@ -7,7 +7,7 @@
  * @noflow
  * @nolint
  * @preventMunge
- * @generated SignedSource<<459cf606c770d4cc3afc6ac924295181>>
+ * @generated SignedSource<<a6e653adb4b1fe2c2eaae21b0a45b5a1>>
  */
 
 /*
@@ -25528,17 +25528,24 @@ __DEV__ &&
                   { cause: error }
                 );
           case "InvalidStateError":
-            if (
-              "View transition was skipped because document visibility state is hidden." ===
-                error.message ||
-              "Skipping view transition because document visibility state has become hidden." ===
-                error.message ||
-              "Skipping view transition because viewport size changed." ===
-                error.message ||
-              "Transition was aborted because of invalid state" ===
-                error.message
-            )
-              return null;
+            switch (error.message) {
+              case "Transition was aborted because of invalid state":
+              case "Transition was aborted because of invalid state.":
+              case "Transition was aborted because of invalid state. Document hidden":
+              case "Transition was aborted because of invalid state. Viewport size changed":
+              case "Skipped ViewTransition due to document being hidden":
+              case "Skipped view transition due to viewport resize":
+              case "View transition was skipped because document visibility state is hidden.":
+              case "Skipping view transition because document visibility state has become hidden.":
+              case "Skipping view transition because viewport size changed.":
+                return null;
+              case "Transition was aborted because of invalid state. Snapshot capture failed":
+              case "Transition was aborted because of invalid state. Animation start failed":
+                return Error(
+                  "A ViewTransition could not start. This usually means that two elements have the same view-transition-name at the same time. Check the console for details.",
+                  { cause: error }
+                );
+            }
         }
       return error;
     }
@@ -32500,11 +32507,11 @@ __DEV__ &&
     };
     (function () {
       var isomorphicReactPackageVersion = React.version;
-      if ("19.3.0-native-fb-dc9aed36-20261027" !== isomorphicReactPackageVersion)
+      if ("19.3.0-native-fb-c5ec5c6d-20261029" !== isomorphicReactPackageVersion)
         throw Error(
           'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' +
             (isomorphicReactPackageVersion +
-              "\n  - react-dom:  19.3.0-native-fb-dc9aed36-20261027\nLearn more: https://react.dev/warnings/version-mismatch")
+              "\n  - react-dom:  19.3.0-native-fb-c5ec5c6d-20261029\nLearn more: https://react.dev/warnings/version-mismatch")
         );
     })();
     ("function" === typeof Map &&
@@ -32541,10 +32548,10 @@ __DEV__ &&
       !(function () {
         var internals = {
           bundleType: 1,
-          version: "19.3.0-native-fb-dc9aed36-20261027",
+          version: "19.3.0-native-fb-c5ec5c6d-20261029",
           rendererPackageName: "react-dom",
           currentDispatcherRef: ReactSharedInternals,
-          reconcilerVersion: "19.3.0-native-fb-dc9aed36-20261027"
+          reconcilerVersion: "19.3.0-native-fb-c5ec5c6d-20261029"
         };
         internals.overrideHookState = overrideHookState;
         internals.overrideHookStateDeletePath = overrideHookStateDeletePath;
@@ -33022,7 +33029,7 @@ __DEV__ &&
     exports.useFormStatus = function () {
       return resolveDispatcher().useHostTransitionStatus();
     };
-    exports.version = "19.3.0-native-fb-dc9aed36-20261027";
+    exports.version = "19.3.0-native-fb-c5ec5c6d-20261029";
     "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
       "function" ===
         typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&
