@@ -20233,17 +20233,18 @@ function startViewTransition(
           if ("object" === typeof error && null !== error)
             switch (error.name) {
               case "InvalidStateError":
-                if (
-                  "View transition was skipped because document visibility state is hidden." ===
-                    error.message ||
-                  "Skipping view transition because document visibility state has become hidden." ===
-                    error.message ||
-                  "Skipping view transition because viewport size changed." ===
-                    error.message ||
-                  "Transition was aborted because of invalid state" ===
-                    error.message
-                )
-                  error = null;
+                switch (error.message) {
+                  case "Transition was aborted because of invalid state":
+                  case "Transition was aborted because of invalid state.":
+                  case "Transition was aborted because of invalid state. Document hidden":
+                  case "Transition was aborted because of invalid state. Viewport size changed":
+                  case "Skipped ViewTransition due to document being hidden":
+                  case "Skipped view transition due to viewport resize":
+                  case "View transition was skipped because document visibility state is hidden.":
+                  case "Skipping view transition because document visibility state has become hidden.":
+                  case "Skipping view transition because viewport size changed.":
+                    error = null;
+                }
             }
           null !== error && errorCallback(error);
         } finally {
@@ -22878,14 +22879,14 @@ function getCrossOriginStringAs(as, input) {
 }
 var isomorphicReactPackageVersion$jscomp$inline_2418 = React.version;
 if (
-  "19.3.0-www-classic-e9df86ca-20261027" !==
+  "19.3.0-www-classic-c5ec5c6d-20261029" !==
   isomorphicReactPackageVersion$jscomp$inline_2418
 )
   throw Error(
     formatProdErrorMessage(
       527,
       isomorphicReactPackageVersion$jscomp$inline_2418,
-      "19.3.0-www-classic-e9df86ca-20261027"
+      "19.3.0-www-classic-c5ec5c6d-20261029"
     )
   );
 Internals.findDOMNode = function (componentOrElement) {
@@ -22903,10 +22904,10 @@ Internals.Events = [
 ];
 var internals$jscomp$inline_2420 = {
   bundleType: 0,
-  version: "19.3.0-www-classic-e9df86ca-20261027",
+  version: "19.3.0-www-classic-c5ec5c6d-20261029",
   rendererPackageName: "react-dom",
   currentDispatcherRef: ReactSharedInternals,
-  reconcilerVersion: "19.3.0-www-classic-e9df86ca-20261027"
+  reconcilerVersion: "19.3.0-www-classic-c5ec5c6d-20261029"
 };
 enableSchedulingProfiler &&
   ((internals$jscomp$inline_2420.getLaneLabelMap = getLaneLabelMap),
@@ -23351,7 +23352,7 @@ exports.useFormState = function (action, initialState, permalink) {
 exports.useFormStatus = function () {
   return ReactSharedInternals.H.useHostTransitionStatus();
 };
-exports.version = "19.3.0-www-classic-e9df86ca-20261027";
+exports.version = "19.3.0-www-classic-c5ec5c6d-20261029";
 "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
   "function" ===
     typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&
